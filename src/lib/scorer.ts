@@ -353,7 +353,7 @@ function calculateContactScore(parsedResume: ParsedResume): CategoryScore {
   };
 }
 
-function calculateDateConsistencyScore(parsedResume: ParsedResume): CategoryScore {
+function calculateDateConsistencyScore(_parsedResume: ParsedResume): CategoryScore {
   return {
     score: 8,
     maxScore: 10,

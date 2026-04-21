@@ -57,14 +57,16 @@ export class ResumeParser {
     const text = await file.text();
     return {
       text,
+      rawXML: undefined,
       images: []
     };
   }
   
-  private async parseTXT(file: File) {
+  private async parseTXT(file: File): Promise<{ text: string; rawXML?: string; images?: any[] }> {
     const text = await file.text();
     return {
       text,
+      rawXML: undefined,
       images: []
     };
   }

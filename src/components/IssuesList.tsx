@@ -17,20 +17,6 @@ export function IssuesList({ issues }: IssuesListProps) {
     }
   };
 
-  const getSeverityBadge = (severity: Issue['severity']) => {
-    const styles = {
-      CRITICAL: 'bg-red-100 text-red-800 border-red-200',
-      WARNING: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      MINOR: 'bg-blue-100 text-blue-800 border-blue-200'
-    };
-
-    return (
-      <span className={`px-2 py-1 text-xs font-semibold rounded-full border ${styles[severity]}`}>
-        {severity}
-      </span>
-    );
-  };
-
   const groupedIssues = {
     CRITICAL: issues.filter(i => i.severity === 'CRITICAL'),
     WARNING: issues.filter(i => i.severity === 'WARNING'),
