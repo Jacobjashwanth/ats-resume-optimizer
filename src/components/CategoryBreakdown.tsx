@@ -34,12 +34,6 @@ export function CategoryBreakdown({ categories }: CategoryBreakdownProps) {
     return 'bg-red-500';
   };
 
-  const getBackgroundColor = (percentage: number) => {
-    if (percentage >= 80) return 'bg-green-50';
-    if (percentage >= 60) return 'bg-yellow-50';
-    return 'bg-red-50';
-  };
-
   return (
     <div className="space-y-4">
       {Object.entries(categories).map(([key, category]) => (
