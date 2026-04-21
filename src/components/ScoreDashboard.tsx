@@ -1,9 +1,10 @@
+import { TrendingUp } from 'lucide-react';
 import { useResumeStore } from '../lib/store';
-import { ScoreGauge } from './ScoreGauge';
 import { CategoryBreakdown } from './CategoryBreakdown';
 import { IssuesList } from './IssuesList';
 import { Recommendations } from './Recommendations';
-import { TrendingUp } from 'lucide-react';
+import { ResumeGenerator } from './ResumeGenerator';
+import { ScoreGauge } from './ScoreGauge';
 
 export function ScoreDashboard() {
   const { atsScore } = useResumeStore();
@@ -73,6 +74,9 @@ export function ScoreDashboard() {
           )}
         </div>
       </div>
+
+      {/* Resume Generator - NEW! */}
+      <ResumeGenerator />
 
       {/* Category Breakdown */}
       <div className="mb-8">
