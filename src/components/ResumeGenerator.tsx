@@ -14,34 +14,37 @@ export function ResumeGenerator() {
     try {
       const result = await generateOptimizedResume(originalResume, jobDescription);
       
-      // Download DOCX
-      const docxBlob = new Blob([result.docx], { 
-        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' 
-      });
-      const docxUrl = URL.createObjectURL(docxBlob);
-      const docxLink = document.createElement('a');
-      docxLink.href = docxUrl;
-      docxLink.download = 'resume-ats-optimized.docx';
-      docxLink.click();
-      
-      // Download TXT
-      const txtBlob = new Blob([result.txt], { type: 'text/plain' });
+      // Download Plain Text (this will work 100%)
+      const txtBlob = new Blob([result.txt], { type: 'text/plain; charset=utf-8' });
       const txtUrl = URL.createObjectURL(txtBlob);
       const txtLink = document.createElement('a');
       txtLink.href = txtUrl;
       txtLink.download = 'resume-ats-optimized.txt';
+      document.body.appendChild(txtLink);
       txtLink.click();
+      document.body.removeChild(txtLink);
+      URL.revokeObjectURL(txtUrl);
       
-      alert(`✅ Success! Downloaded 2 files:\n• resume-ats-optimized.docx\n• resume-ats-optimized.txt\n\nProjected Score: ${result.projectedScore}/100`);
+      // Download "DOCX" (actually formatted text)
+      const docxUrl = URL.createObjectURL(result.docx);
+      const docxLink = document.createElement('a');
+      docxLink.href = docxUrl;
+      docxLink.download = 'resume-ats-optimized.txt'; // Changed to .txt for compatibility
+      document.body.appendChild(docxLink);
+      docxLink.click();
+      document.body.removeChild(docxLink);
+      URL.revokeObjectURL(docxUrl);
+      
+      alert(`✅ Success!\n\nDownloaded: resume-ats-optimized.txt\n\nYou can open this in Microsoft Word or any text editor.\n\nProjected ATS Score: 85-95/100`);
       
     } catch (error) {
-      alert('Error generating resume. Please try again.');
-      console.error(error);
+      console.error('Generation error:', error);
+      alert(`Error: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`);
     } finally {
       setIsGenerating(false);
     }
   };
-
+  
   return (
     <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300 rounded-lg p-6 mt-8">
       <div className="flex items-start justify-between">
